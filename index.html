@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<head>
+	<link rel="stylesheet" href="weather.css">
+	<link rel="stylesheet" href=
+"https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+	<link rel="stylesheet" href=
+"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+	<link rel="stylesheet" href=
+"https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+	<title>weather app</title>
+</head>
+
+<body><style>{
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 1s ease-in-out;}
+    </style>
+    <script>
+        const images = ["image1.jpg", "image3.jpg", "image2.avif"];
+        let index = 0;
+        
+        function changeBackground() {
+            document.body.style.backgroundImage = `url('${images[index]}')`;
+            index = (index + 1) % images.length;
+        }
+        
+        changeBackground();
+        setInterval(changeBackground, 5000); 
+    </script>
+	<div class="container">
+		<div class="weather-card">
+			 <h1 style="color: green;">
+				
+			</h1>
+			<h3>
+				Weather App
+			</h3>
+			<input type="text" id="city-input"
+				placeholder="Enter city name">
+			<button id="city-input-btn"
+					onclick="weatherFn($('#city-input').val())">
+					Get Weather
+			</button>
+			<div id="weather-info"
+				class="animate__animated animate__fadeIn">
+				<h3 id="city-name"></h3>
+				<p id="date"></p>
+				<!-- <img id="weather-i" src="" alt="Weather Icon"> -->
+				<p id="temperature"></p>
+				<p id="description"></p>
+				<p id="wind-speed"></p>
+			</div>
+		</div>
+	</div>
+	<img id="bot" src="bot.jpg" alt="Weather Bot" onclick="tellJoke()">
+	<script src=
+"https://code.jquery.com/jquery-3.6.0.min.js">
+	</script>
+	<script src=
+"https://momentjs.com/downloads/moment.min.js">
+	</script>
+	<script src="weather.js"></script>
+	<script>
+		const jokes = {
+			"clear sky": [
+				"Why did the sun go to school? To get a little brighter!",
+				"What does a lazy cloud do? Nothing, it just hangs around."
+			],
+			"rain": [
+				"Why do cows lie down when it rains? To keep each udder dry!",
+				"What’s worse than raining cats and dogs? Hailing taxis!"
+			],
+			"snow": [
+				"What do you call a snowman in summer? A puddle!",
+				"Why did Frosty go to therapy? He had a meltdown!"
+			],
+			"clouds": [
+				"Why don’t clouds ever get lost? They follow the mist!",
+				"What kind of shorts do clouds wear? Thunderwear!"
+			],
+			"wind": [
+				"What’s the wind’s favorite color? Blow!",
+				"Why did the wind break up with the tornado? It felt too much pressure!"
+			]
+		};
+		
+		
+		function tellJoke() {
+			let weatherDescription = document.getElementById("description").innerText.toLowerCase();
+			let jokeList = jokes[weatherDescription] || ["I don't have a joke for this weather, but stay awesome!"];
+			
+			let randomJoke = jokeList[Math.floor(Math.random() * jokeList.length)];
+			
+			let jokeElement = document.getElementById("joke");
+			jokeElement.innerText = randomJoke;
+			jokeElement.style.display = "block";
+		
+			// Make the bot spin when clicked
+			let bot = document.getElementById("bot");
+			bot.style.transform = "rotate(720deg)";
+		
+			setTimeout(() => {
+				bot.style.transform = "rotate(0deg)";
+				jokeElement.style.display = "none";
+			}, 4000); // Hides the joke after 4 seconds
+		}
+		</script>
+		
+</body>
+
+</html>
